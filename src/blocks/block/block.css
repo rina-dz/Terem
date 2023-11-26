@@ -1,0 +1,15 @@
+.block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    min-height: 60px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+.block:nth-child(6) {
+    grid-column: span 2;
+}
