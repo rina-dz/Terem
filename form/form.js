@@ -1,4 +1,5 @@
 const form = document.querySelector('.form');
+const result = document.querySelector('.results');
 const popup = document.querySelector('.popup');
 const popupText = document.querySelector('.popup__text');
 const popupButton = document.querySelector('.popup__close-button');
@@ -7,23 +8,21 @@ const popupButton = document.querySelector('.popup__close-button');
 function showPopup(message) {
     popup.classList.remove('hidden');
     popupText.innerHTML = message;
-    setTimeout(() => {popup.classList.add('hidden');}, 4000);
 }
 
 function handleFormSubmit(evt) {
     evt.preventDefault();
+    result.innerHTML = '<h2>Результат:</h2>';
     const formData = new FormData(form);
     let data = {};
 
     for (let [key, value] of formData) {
-        let element = document.getElementById(`${key}`);
-        element.textContent = value;
         data[key] = value;
+        result.insertAdjacentHTML('beforeend', `<p>${value}</p>`);
     }
 
     fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        body: JSON.stringify(data),
+        method: 'GET',
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
         },
