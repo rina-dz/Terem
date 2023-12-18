@@ -4,9 +4,10 @@ const popup = document.querySelector('.popup');
 const popupText = document.querySelector('.popup__text');
 const popupButton = document.querySelector('.popup__close-button');
 
+let baseUrl = new URL('https://jsonplaceholder.typicode.com');
 
 function showPopup(message) {
-    popup.classList.remove('hidden');
+    popup.classList.toggle('hidden');
     popupText.innerHTML = message;
 }
 
@@ -19,9 +20,11 @@ function handleFormSubmit(evt) {
     for (let [key, value] of formData) {
         data[key] = value;
         result.insertAdjacentHTML('beforeend', `<p>${value}</p>`);
-    }
+    } 
 
-    fetch('https://jsonplaceholder.typicode.com/posts', {
+    baseUrl.searchParams.set('JSON', JSON.stringify(data));
+
+    fetch(baseUrl, {
         method: 'GET',
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
